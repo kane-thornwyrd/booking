@@ -1,34 +1,35 @@
 {
-  "name": "boilerplate",
+  "name": "booking",
+  "private": true,
   "logo": {
-    "font": "./.fonts/04B_03__.TTF",
+    "font": "./.fonts/Capriola-Regular.ttf",
     "fontSzie": 72,
-    "logo": "Boilerplate",
+    "logo": "Booking",
     "output": "logo.svg",
     "path": {
-      "fill": "#cb3837"
+      "fill": "#f86c28"
     }
   },
   "version": "0.0.0",
-  "description": "Magic tools and Terra-firma for Open-Source JS projects !",
+  "description": "The goal of this simple app is to book a prestation at home",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cz": "git-cz",
     "cc": "conventional-changelog",
     "release": "standard-version",
-    "logo": "logo && convert-svg-to-png logo.svg && rm -f logo.svg"
+    "logo": "npx logo.svg && npx convert-svg-to-png logo.svg && rm -f logo.svg"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kane-thornwyrd/boilerplate.git"
+    "url": "git+https://github.com/kane-thornwyrd/booking.git"
   },
   "author": "Jean-cédric Thérond <jean.cedric.t@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/kane-thornwyrd/boilerplate/issues"
+    "url": "https://github.com/kane-thornwyrd/booking/issues"
   },
-  "homepage": "https://github.com/kane-thornwyrd/boilerplate#readme",
+  "homepage": "https://github.com/kane-thornwyrd/booking#readme",
   "devDependencies": {
     "@commitlint/config-conventional": "7.3.1",
     "commitizen": "3.0.5",
@@ -36,7 +37,6 @@
     "cz-conventional-changelog": "2.1.0",
     "git-precommit-checks": "1.2.0",
     "husky": "1.3.1",
-    "logo.svg": "1.0.1",
     "precise-commits": "1.0.2",
     "prettier": "1.15.3"
   },
