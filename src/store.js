@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
-import rootReducers from './reducers'
+
+import rootReducers, { createStore } from './reducers'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './sagas'
 import { createBrowserHistory } from 'history'
@@ -19,11 +20,11 @@ if (process.env.NODE_ENV === 'development') {
   const logger = createLogger({ collapsed: true })
   middlewares.push(logger)
 
-  const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
-          {
-            name: 'Booking',
-          }
-        ) : compose
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+        {
+          name: 'Booking',
+        }
+      ) : compose
 }
 
 export default function configureStore(initialState) {
