@@ -1,0 +1,35 @@
+{
+  "extends": ["react-app","eslint-config-prettier"],
+  "parser": 'babel-eslint',
+  "parserOptions": { "ecmaFeatures": { jsx: true } },
+  "settings": { "react": { version: "latest" } },
+  "plugins": [
+    "react-hooks",
+    "babel",
+    "prettier"
+  ],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error"
+  },
+  "env": {
+    "browser": true,
+    "jest": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": false
+      }
+    ]
+  },
+  "globals": {
+    "page": true,
+    "browser": true,
+    "context": true,
+    "jestPuppeteer": true,
+  }
+}

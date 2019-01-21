@@ -1,0 +1,18 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "minify"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-class-properties",
+    "lodash",
+    [
+      "react-intl-auto",
+      {
+        "removePrefix": "src/",
+        "filebase": false
+      }
+    ]
+  ]
+}
