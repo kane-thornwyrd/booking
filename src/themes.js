@@ -30,13 +30,13 @@ const main = createMuiTheme({
   },
 })
 
-const drawer = theme => ({
+const paperbase = theme => ({
   ...theme,
   overrides: {
     MuiDrawer: {
-      paper: {
-        backgroundColor: '#18202c',
-      },
+      // paper: {
+      //   backgroundColor: '#18202c',
+      // },
     },
     MuiButton: {
       label: {
@@ -127,7 +127,7 @@ const drawer = theme => ({
 
 export const themes = {
   main,
-  drawer: drawer(main),
+  paperbase: paperbase(main),
 }
 
 export const ThemeContext = React.createContext(themes.main)
