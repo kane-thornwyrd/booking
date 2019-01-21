@@ -22,16 +22,16 @@ const App = props => {
     <IntlProvider locale={locale} key={locale} messages={messages}>
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            <MuiThemeProvider theme={themes.paperbase}>
+          <MuiThemeProvider theme={themes.paperbase}>
+            <MuiPickersUtilsProvider utils={MomentUtils}>
               <Layout>
                 <Switch>
                   {routes}
                   <Route name="Page not found" component={PageNotFound} />
                 </Switch>
               </Layout>
-            </MuiThemeProvider>
-          </MuiPickersUtilsProvider>
+            </MuiPickersUtilsProvider>
+          </MuiThemeProvider>
         </ConnectedRouter>
       </Provider>
     </IntlProvider>
