@@ -1,6 +1,6 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import { Layout, PageNotFound } from './features/core'
+import { Route } from 'react-router-dom'
+import Home from './features/home'
 
 import { themes } from './themes'
 
@@ -10,19 +10,20 @@ const childRoutes = [
   //moduleRoute,
 ]
 
+export const APPROOT = '/'
+
 const routes = [
   {
-    path: '/',
-    component: () => <h1>Hello</h1>,
-    childRoutes: [
-      ...childRoutes,
-      { path: '*', name: 'Page not found', component: PageNotFound },
-    ].filter(r => r.component || (r.childRoutes && r.childRoutes.length > 0)),
+    path: APPROOT,
+    component: Home,
+    childRoutes: [...childRoutes].filter(
+      r => r.component || (r.childRoutes && r.childRoutes.length > 0)
+    ),
   },
 ]
 
 // Handle isIndex property of route config:
-//  Dupicate it and put it as the first route rule.
+//  Duplicate it and put it as the first route rule.
 function handleIndexRoute(route) {
   if (!route.childRoutes || !route.childRoutes.length) {
     return
@@ -41,9 +42,9 @@ function handleIndexRoute(route) {
 
 routes.forEach(handleIndexRoute)
 
+
 function renderRouteConfig(parentRoutes, contextPath) {
-  // Resolve route config object in React Router v3.
-  const children = [] // children component list
+  const children = []
 
   const renderRoute = (item, routeContextPath) => {
     let newContextPath
@@ -53,19 +54,13 @@ function renderRouteConfig(parentRoutes, contextPath) {
       newContextPath = `${routeContextPath}/${item.path}`
     }
     newContextPath = newContextPath.replace(/\/+/g, '/')
-    if (item.component && item.childRoutes) {
+    if (item.component && item.childRoutes && !!item.childRoutes.length) {
       const childRoutes = renderRouteConfig(item.childRoutes, newContextPath)
-      children.push(
-        <Route
-          key={newContextPath}
-          render={props => <item.component {...props}>{childRoutes}</item.component>}
-          path={newContextPath}
-        />,
-      )
+      children.push(<Route key={newContextPath} render={props => <item.component {...props}>
+              {childRoutes}
+            </item.component>} path={newContextPath} />)
     } else if (item.component) {
-      children.push(
-        <Route key={newContextPath} component={item.component} path={newContextPath} exact />,
-      )
+      children.push(<Route key={newContextPath} component={item.component} path={newContextPath} exact />)
     } else if (item.childRoutes) {
       item.childRoutes.forEach(r => renderRoute(r, newContextPath))
     }
@@ -73,11 +68,8 @@ function renderRouteConfig(parentRoutes, contextPath) {
 
   parentRoutes.forEach(item => renderRoute(item, contextPath))
 
-  return (
-    <Layout>
-      <Switch>{children}</Switch>
-    </Layout>
-  )
+  return children
 }
 
-export default () => renderRouteConfig(routes, '/')
+
+export default renderRouteConfig(routes, '/')
