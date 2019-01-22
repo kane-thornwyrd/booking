@@ -1,5 +1,10 @@
 [
   {
+    "id": "core.loading.body",
+    "defaultMessage": "Loading...",
+    "filepath": "src/common/Loading.js"
+  },
+  {
     "id": "core.pageNotFound.title",
     "defaultMessage": "Page not found",
     "filepath": "src/features/core/PageNotFound.js"

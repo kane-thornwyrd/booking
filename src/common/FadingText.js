@@ -39,11 +39,11 @@ const renderLetters = ({ text, textColor, shadowColor, styleSheet, timingFunctio
 const FadingText = props => {
   const tagName = props.tagName || 'span'
 
-  const timingFunctions = props.timingFunctions || ['linear', 'ease-in', 'ease-out', 'ease-in-out', 'ease']
+  const timingFunctions = props.timingfunctions || ['linear', 'ease-in', 'ease-out', 'ease-in-out', 'ease']
 
   const [styleSheet, setStyleSheet] = useState(null)
-  const [textColor, setTextColor] = useState(props.textColor || '#000')
-  const [shadowColor, setShadowColor] = useState(props.shadowColor || '#000')
+  const [textColor, setTextColor] = useState(props.textcolor || '#000')
+  const [shadowColor, setShadowColor] = useState(props.shadowcolor || '#000')
 
   let style
   useEffect(() => {
