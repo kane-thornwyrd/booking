@@ -1,0 +1,2 @@
+
+export { watchGetUniverse } from './reducer'

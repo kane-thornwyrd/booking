@@ -1,8 +1,10 @@
 import { all } from 'redux-saga/effects'
-//import * as moduleSagas from '../features/module/redux/sagas';
+//import * as moduleSagas from './features/module/redux/sagas';
+import * as coreSagas from './features/core/redux/sagas';
 
 const featureSagas = [
   //  moduleSagas,
+  coreSagas,
 ]
 
 const sagas = featureSagas

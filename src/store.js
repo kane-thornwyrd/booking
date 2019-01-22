@@ -1,5 +1,6 @@
-import { applyMiddleware, compose } from 'redux'
+import { applyMiddleware } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import rootReducers, { createStore } from './reducers'
 import createSagaMiddleware from 'redux-saga'
@@ -11,8 +12,6 @@ const sagaMiddleware = createSagaMiddleware()
 
 const middlewares = [routerMiddleware(history), sagaMiddleware]
 
-let composeEnhancers = compose
-
 /* istanbul ignore if  */
 if (process.env.NODE_ENV === 'development') {
   const { createLogger } = require('redux-logger')
@@ -20,15 +19,10 @@ if (process.env.NODE_ENV === 'development') {
   const logger = createLogger({ collapsed: true })
   middlewares.push(logger)
 
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
-        {
-          name: 'Booking',
-        }
-      ) : compose
 }
 
 export default function configureStore(initialState) {
-  const store = createStore(rootReducers(history), initialState, composeEnhancers(applyMiddleware(...middlewares)))
+  const store = createStore(rootReducers(history), initialState, composeWithDevTools(applyMiddleware(...middlewares)))
 
   /* istanbul ignore if  */
   if (module.hot) {

@@ -30,7 +30,9 @@ const styles = theme => ({
   },
 })
 
-const Layout = ({ children, classes }) => {
+const Layout = props => {
+  const { children, classes } = props
+
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
