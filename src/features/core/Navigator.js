@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -21,13 +21,13 @@ import TimerIcon from '@material-ui/icons/Timer'
 import SettingsIcon from '@material-ui/icons/Settings'
 import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup'
 
+import UniverseContext from '../../common/contexts/UniverseContext'
+
+import { Loading, Utils } from '../../common'
+
 import { APPROOT } from '../../routes'
 
 const styles = theme => ({
-  categoryHeader: {
-    paddingTop: 16,
-    paddingBottom: 16,
-  },
   item: {
     paddingTop: 4,
     paddingBottom: 4,
@@ -55,52 +55,67 @@ const styles = theme => ({
   },
 })
 
-const Navigator = ({ classes, navigator, ...other }) => (
-  <Drawer variant="permanent" {...other}>
-    <List disablePadding>
-      <ListItem className={classNames(classes.item, classes.itemCategory)}>
+const universeToNavigatorFilter = ({ categories, reference, title }) => [
+  { categories, reference, title },
+]
+
+const Navigator = ({ classes, ...other }) => {
+  const universeContext = useContext(UniverseContext)
+
+  return (
+    <Drawer variant="permanent" {...other}>
+      <List disablePadding>
         <Link to={APPROOT} style={{ color: '#000', textDecoration: 'inherit' }}>
-          Booking
-        </Link>
-      </ListItem>
-      {navigator.map(({ id, children }) => (
-        <React.Fragment key={id}>
-          <ListItem className={classes.categoryHeader}>
-            <ListItemText
-              classes={{
-                primary: classes.categoryHeaderPrimary,
-              }}
-            >
-              {id}
-            </ListItemText>
+          <ListItem button className={classNames(classes.item, classes.itemCategory)}>
+            Booking
           </ListItem>
-          {children.map(({ id: childId, to }) => (
-            <NavLink
-              exact
-              strict
-              key={childId}
-              to={to}
-              activeClassName={classes.itemActiveItem}
-              className={classNames(classes.item)}
-            >
-              <ListItem button dense>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                    textDense: classes.textDense,
-                  }}
+        </Link>
+        {!universeContext ? (
+          <Loading />
+        ) : (
+          universeToNavigatorFilter(universeContext).map(({ categories, reference, title }) => (
+            <React.Fragment key={reference}>
+              <NavLink
+                exact
+                strict
+                key={reference}
+                to={Utils.makeUrl(reference)}
+                activeClassName={classes.itemActiveItem}
+                className={classNames(classes.item)}
+              >
+                <ListItem button>
+                  <ListItemText disableTypography>{title}</ListItemText>
+                </ListItem>
+              </NavLink>
+              {categories.map(({ reference: subRef, title: subTitle }) => (
+                <NavLink
+                  exact
+                  strict
+                  key={subRef}
+                  to={Utils.makeUrl(reference, subRef)}
+                  activeClassName={classes.itemActiveItem}
+                  className={classNames(classes.item)}
                 >
-                  {childId}
-                </ListItemText>
-              </ListItem>
-            </NavLink>
-          ))}
-          <Divider className={classes.divider} />
-        </React.Fragment>
-      ))}
-    </List>
-  </Drawer>
-)
+                  <ListItem button dense>
+                    <ListItemText
+                      classes={{
+                        primary: classes.itemPrimary,
+                        textDense: classes.textDense,
+                      }}
+                    >
+                      {subTitle}
+                    </ListItemText>
+                  </ListItem>
+                </NavLink>
+              ))}
+              <Divider className={classes.divider} />
+            </React.Fragment>
+          ))
+        )}
+      </List>
+    </Drawer>
+  )
+}
 
 const mapStateToProps = state => ({
   navigator: state.core.navigator,
