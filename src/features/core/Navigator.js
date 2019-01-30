@@ -1,31 +1,18 @@
 import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 import { NavLink, Link } from 'react-router-dom'
-import { connect } from 'react-redux'
 
 import { withStyles } from '@material-ui/core/styles'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import HomeIcon from '@material-ui/icons/Home'
-import PeopleIcon from '@material-ui/icons/People'
-import DnsRoundedIcon from '@material-ui/icons/DnsRounded'
-import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual'
-import PublicIcon from '@material-ui/icons/Public'
-import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet'
-import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent'
-import TimerIcon from '@material-ui/icons/Timer'
-import SettingsIcon from '@material-ui/icons/Settings'
-import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup'
+import Typography from '@material-ui/core/Typography'
 
-import UniverseContext from '../../common/contexts/UniverseContext'
+import { contexts as commonContexts, Loading } from '../../common'
 
-import { Loading, Utils } from '../../common'
-
-import { APPROOT } from '../../routes'
+import { ROUTE_APPROOT } from '../home'
+import { makeUrl as prestationCatalogMakeUrl } from '../prestations-catalog'
 
 const styles = theme => ({
   item: {
@@ -34,13 +21,8 @@ const styles = theme => ({
     textDecoration: 'inherit',
     color: 'inherit',
   },
-  itemCategory: {
-    boxShadow: '0 -1px 0 #000 inset',
-    paddingTop: 16,
-    paddingBottom: 16,
-  },
   itemActiveItem: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.light,
   },
   itemPrimary: {
     color: 'inherit',
@@ -55,36 +37,30 @@ const styles = theme => ({
   },
 })
 
-const universeToNavigatorFilter = ({ categories, reference, title }) => [
-  { categories, reference, title },
-]
-
-const Navigator = ({ classes, ...other }) => {
-  const universeContext = useContext(UniverseContext)
+const Navigator = ({ classes, togglecallback, ...other }) => {
+  const universeContext = useContext(commonContexts.UniverseContext)
 
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <Link to={APPROOT} style={{ color: '#000', textDecoration: 'inherit' }}>
-          <ListItem button className={classNames(classes.item, classes.itemCategory)}>
-            Booking
-          </ListItem>
-        </Link>
         {!universeContext ? (
           <Loading />
         ) : (
-          universeToNavigatorFilter(universeContext).map(({ categories, reference, title }) => (
+          universeContext.map(({ categories, reference, title }) => (
             <React.Fragment key={reference}>
               <NavLink
                 exact
                 strict
                 key={reference}
-                to={Utils.makeUrl(reference)}
+                to={prestationCatalogMakeUrl({ ref: reference })}
                 activeClassName={classes.itemActiveItem}
                 className={classNames(classes.item)}
+                onClick={togglecallback}
               >
-                <ListItem button>
-                  <ListItemText disableTypography>{title}</ListItemText>
+                <ListItem button component="span">
+                  <Typography align="center" variant="h5">
+                    {title}
+                  </Typography>
                 </ListItem>
               </NavLink>
               {categories.map(({ reference: subRef, title: subTitle }) => (
@@ -92,19 +68,13 @@ const Navigator = ({ classes, ...other }) => {
                   exact
                   strict
                   key={subRef}
-                  to={Utils.makeUrl(reference, subRef)}
+                  to={prestationCatalogMakeUrl({ ref: reference, subRef })}
                   activeClassName={classes.itemActiveItem}
                   className={classNames(classes.item)}
+                  onClick={togglecallback}
                 >
-                  <ListItem button dense>
-                    <ListItemText
-                      classes={{
-                        primary: classes.itemPrimary,
-                        textDense: classes.textDense,
-                      }}
-                    >
-                      {subTitle}
-                    </ListItemText>
+                  <ListItem button dense component="span">
+                    {subTitle}
                   </ListItem>
                 </NavLink>
               ))}
@@ -117,13 +87,4 @@ const Navigator = ({ classes, ...other }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  navigator: state.core.navigator,
-})
-
-const mapDispatchToProps = dispatch => ({})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Navigator))
+export default withStyles(styles)(Navigator)

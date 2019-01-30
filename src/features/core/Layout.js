@@ -26,14 +26,14 @@ const styles = theme => ({
   },
   mainContent: {
     flex: 1,
-    padding: '48px 36px 0',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px 0`,
   },
 })
 
-const Layout = props => {
-  const { children, classes } = props
-
+const Layout = ({ children, classes }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const toggleDrawer = () => setMobileOpen(!mobileOpen)
 
   return (
     <div className={classes.root}>
@@ -44,7 +44,8 @@ const Layout = props => {
             PaperProps={{ style: { width: drawerWidth } }}
             variant="temporary"
             open={mobileOpen}
-            onClose={() => setMobileOpen(!mobileOpen)}
+            onClose={toggleDrawer}
+            togglecallback={toggleDrawer}
           />
         </Hidden>
         <Hidden xsDown implementation="css">

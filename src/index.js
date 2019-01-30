@@ -48,4 +48,5 @@ export default function renderApp() {
     </IntlProvider>, app)
 }
 
+mainloader.hidden = true
 renderApp()

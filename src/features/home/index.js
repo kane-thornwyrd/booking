@@ -1,3 +1,5 @@
 import React from 'react'
 
-export default () => <h1>Welcome to Booking</h1>
+export { ROUTE_APPROOT } from './routes'
+
+export default props => <React.Fragment>{props.children}</React.Fragment>
