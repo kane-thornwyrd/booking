@@ -18,7 +18,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 
-import { APPROOT } from '../../routes'
+import { ROUTE_APPROOT } from '../home'
 
 const lightColor = 'rgba(255, 255, 255, 0.7)'
 
@@ -75,7 +75,7 @@ const Header = ({ classes, onDrawerToggle }) => (
         <Grid container alignItems="center" spacing={8}>
           <Grid item xs>
             <Typography variant="h5">
-              <Link to={APPROOT} style={{ color: '#fff', textDecoration: 'inherit' }}>
+              <Link to={ROUTE_APPROOT} style={{ color: '#fff', textDecoration: 'inherit' }}>
                 Booking
               </Link>
             </Typography>

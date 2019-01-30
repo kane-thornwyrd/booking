@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Switch, Route } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 
-import * as actions from './features/core/redux/actions'
+import { routes, renderRouteConfig } from './routes'
 
-import UniverseContext from './common/contexts/UniverseContext'
-
-import routes from './routes'
-import { Layout, PageNotFound } from './features/core'
+import { contexts as commonContexts } from './common'
+import { Layout, PageNotFound, actions } from './features/core'
 
 const App = props => {
   const {
@@ -31,15 +28,11 @@ const App = props => {
     [props.core.getUniverse]
   )
 
-
-  return <UniverseContext.Provider value={universeState}>
-      <Layout>
-        <Switch>
-          {routes}
-          <Route name="Page not found" component={PageNotFound} />
-        </Switch>
-      </Layout>
-    </UniverseContext.Provider>
+  return (
+    <commonContexts.UniverseContext.Provider value={universeState}>
+      <Layout>{renderRouteConfig(routes, '/')}</Layout>
+    </commonContexts.UniverseContext.Provider>
+  )
 }
 
 const mapStateToProps = state => {

@@ -8,11 +8,19 @@ html(lang="")
     title Booking
     meta(name="msapplication-tap-highlight" content="no")
     link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Capriola")
-    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans")
     link(rel="stylesheet" href="./src/index.stylus")
   body
     #app
     noscript
       h1 Sorry
       p You need JS to use this app. (duh)
+      
+    #mainloader
+      div.loading-bar
+      div.loading-bar
+      div.loading-bar
+      div.loading-bar
+
+    script(src="https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver")
     script(src="./src/index.js")

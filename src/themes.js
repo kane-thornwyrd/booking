@@ -5,7 +5,11 @@ const main = createMuiTheme({
   typography: {
     fontFamily: ['Capriola', 'sans-serif'],
     useNextVariants: true,
+    fontWeightLight: 100,
+    fontWeightRegular: 200,
+    fontWeightMedium: 400,
     h5: {
+      color: 'inherit',
       fontWeight: 500,
       fontSize: 26,
       letterSpacing: 0.5,
@@ -19,10 +23,10 @@ const main = createMuiTheme({
       contrastText: '#fff',
     },
     secondary: {
-      light: '#ffed64',
-      main: '#f7bb30',
-      dark: '#c08b00',
-      contrastText: '#fff',
+      light: 'rgba(255,255,255,0.1)',
+      main: 'rgba(255,255,255,0.5)',
+      dark: 'rgba(255,255,255,0.8)',
+      contrastText: '#000',
     },
   },
   shape: {
@@ -34,9 +38,14 @@ const paperbase = theme => ({
   ...theme,
   overrides: {
     MuiDrawer: {
-      // paper: {
-      //   backgroundColor: '#18202c',
-      // },
+      paper: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        color: '#fff',
+        [theme.breakpoints.up('sm')]: {
+          backgroundColor: theme.palette.secondary.dark,
+          color: theme.palette.secondary.contrastText,
+        },
+      },
     },
     MuiButton: {
       label: {
@@ -84,6 +93,8 @@ const paperbase = theme => ({
     MuiTooltip: {
       tooltip: {
         borderRadius: 4,
+        backgroundColor: theme.palette.primary.main,
+        fontSize: '1rem',
       },
     },
     MuiDivider: {
@@ -109,6 +120,11 @@ const paperbase = theme => ({
       root: {
         width: 32,
         height: 32,
+      },
+    },
+    MuiGridListTileBar: {
+      title: {
+        fontSize: '0.8rem',
       },
     },
   },

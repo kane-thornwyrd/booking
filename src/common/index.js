@@ -1,4 +1,7 @@
 export { default as HelloWorld } from './HelloWorld'
 export { default as FadingText } from './FadingText'
 export { default as Loading } from './Loading'
+export { default as If } from './If'
+export { default as Image } from './Image'
 export * as Utils from './utils'
+export * as contexts from './contexts'

@@ -12,7 +12,9 @@ const messages = defineMessages({
 const PageNotFound = ({ intl: { formatMessage } }) => {
   return <React.Fragment>
       <h1>
-        <FadingText>{formatMessage(messages.corePageNotFoundTitle)}</FadingText>
+        <FadingText shadowcolor="#ccc">
+          {formatMessage(messages.corePageNotFoundTitle)}
+        </FadingText>
       </h1>
     </React.Fragment>
 }

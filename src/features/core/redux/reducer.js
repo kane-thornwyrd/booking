@@ -7,9 +7,13 @@ import {
   CORE_GET_UNIVERSE_FAILURE,
 } from './constants'
 
-import { reducer as navigatorReducer } from './reducers/navigator'
+import { universeToNavigatorFilter } from '../transformers'
 
-const reducers = [navigatorReducer]
+// import { reducer as moduleReducer } from './reducers/module'
+
+const reducers = [
+  // moduleReducer
+]
 
 export default function reducer(state = initialState, action) {
   let newState
@@ -38,7 +42,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         getUniversePending: false,
         getUniverseError: null,
-        getUniverse: action.data,
+        getUniverse: universeToNavigatorFilter(action.data),
       }
 
     default:
