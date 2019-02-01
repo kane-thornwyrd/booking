@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withStyles, withTheme } from '@material-ui/core/styles'
 
@@ -40,13 +40,11 @@ const styles = theme => ({
   },
 })
 
-const isReferenceRoot = subReference => subReference === Utils.ALL
-
 let smMediaQuery
 
 const themeMediaQueryToMediaQuery = /^@media (.+)$/
 
-const Content = ({ classes, children, theme, prestations, reference, subReference }) => {
+const Content = ({ classes, children, theme, prestations, references, list, sublist }) => {
   const [isGreaterThanSM, setGreaterThanSM] = useState(false)
 
   const toggleGreaterThanSM = evt => setGreaterThanSM(evt.matches)
@@ -60,29 +58,23 @@ const Content = ({ classes, children, theme, prestations, reference, subReferenc
     return () => smMediaQuery.removeListener(toggleGreaterThanSM)
   }, [])
 
-  const universeContext = useContext(commonContexts.UniverseContext)
-  if (!universeContext) return <Loading />
+  if (!prestations || !references) return <Loading />
 
   return (
     <Paper square elevation={1} className={classes.root}>
       <GridList cellHeight={180} className={classes.grid}>
-        <If is={isReferenceRoot(subReference)}>
-          <PrestationTile
-            title={reference.title}
-            prestations={prestations}
-            classes={classes}
-            isGreaterThanSM={isGreaterThanSM}
-          />
-        </If>
-
-        <If is={!isReferenceRoot(subReference)}>
-          <PrestationTile
-            title={`${reference.title} - ${subReference.title}`}
-            prestations={prestations}
-            classes={classes}
-            isGreaterThanSM={isGreaterThanSM}
-          />
-        </If>
+        {references.map(reference => {
+          return (
+            <PrestationTile
+              key={reference.reference}
+              title={reference.title}
+              prestations={prestations}
+              classes={classes}
+              isGreaterThanSM={isGreaterThanSM}
+              isReferenceRoot={!sublist}
+            />
+          )
+        })}
       </GridList>
     </Paper>
   )
@@ -90,10 +82,8 @@ const Content = ({ classes, children, theme, prestations, reference, subReferenc
 
 const mapStateToProps = (state, props) => {
   return {
-    core: state.core,
     prestations: coreSelectors.prestations(state, props),
-    reference: coreSelectors.reference(state, props),
-    subReference: coreSelectors.subReference(state, props),
+    references: coreSelectors.references(state, props),
   }
 }
 

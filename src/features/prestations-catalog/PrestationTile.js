@@ -11,13 +11,16 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import { Image } from '../../common'
 
 export default props => {
-  const { title, prestations, classes, isGreaterThanSM } = props
+  const { title, prestations, classes, isGreaterThanSM, isReferenceRoot } = props
   const [arrowRef, setArrowRef] = useState(null)
-
+  let subtitle
+  if (!isReferenceRoot) subtitle = prestations[0].categoryTitle
   return (
     <Fragment>
       <GridListTile key="Subheader" style={{ height: 'auto', width: '100%' }}>
-        <ListSubheader component="div">{title}</ListSubheader>
+        <ListSubheader component="div">
+          {isReferenceRoot ? title : `${title} - ${subtitle}`}
+        </ListSubheader>
       </GridListTile>
       {prestations.map(prestation => (
         <Tooltip
@@ -26,7 +29,10 @@ export default props => {
           }`}
           title={
             <React.Fragment>
-              {prestation.categoryTitle} - {prestation.title}
+              {isReferenceRoot
+                ? `${prestation.categoryTitle}
+                - ${prestation.title}`
+                : prestation.title}
               <span className={classes.arrow} ref={setArrowRef} />
             </React.Fragment>
           }
@@ -54,7 +60,12 @@ export default props => {
               height={180}
             />
             <GridListTileBar
-              title={`${prestation.categoryTitle} - ${prestation.title}`}
+              title={
+                isReferenceRoot
+                  ? `${prestation.categoryTitle}
+                  - ${prestation.title}`
+                  : prestation.title
+              }
               subtitle={
                 <span>
                   {prestation.duration}min. - {prestation.price / 100} €
