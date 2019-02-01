@@ -5,7 +5,6 @@ import { hot } from 'react-hot-loader'
 
 import { routes, renderRouteConfig } from './routes'
 
-import { contexts as commonContexts } from './common'
 import { Layout, PageNotFound, actions } from './features/core'
 
 const App = props => {
@@ -21,18 +20,7 @@ const App = props => {
     getUniverse()
   }, [])
 
-  useEffect(
-    () => {
-      setUniverseState(props.core.getUniverse)
-    },
-    [props.core.getUniverse]
-  )
-
-  return (
-    <commonContexts.UniverseContext.Provider value={universeState}>
-      <Layout>{renderRouteConfig(routes, '/')}</Layout>
-    </commonContexts.UniverseContext.Provider>
-  )
+  return <Layout>{renderRouteConfig(routes, '/')}</Layout>
 }
 
 const mapStateToProps = state => {
