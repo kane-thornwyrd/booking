@@ -6,12 +6,13 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
-
 import { Image } from '../../common'
 
-export default props => {
-  const { title, prestations, classes, isGreaterThanSM, isReferenceRoot } = props
+import { AddToBasketButton } from '../prestations-basket'
+
+const PrestationTile = props => {
+  const { key, title, prestations, classes, isGreaterThanSM, isReferenceRoot } = props
+
   const [arrowRef, setArrowRef] = useState(null)
   let subtitle
   if (!isReferenceRoot) subtitle = prestations[0].categoryTitle
@@ -48,7 +49,7 @@ export default props => {
             },
           }}
         >
-          <GridListTile>
+          <GridListTile style={{ height: '180px' }}>
             <Image
               source={`https://loremflickr.com/g/${isGreaterThanSM ? 180 : 360}/180/${
                 prestation.reference
@@ -71,11 +72,7 @@ export default props => {
                   {prestation.duration}min. - {prestation.price / 100} €
                 </span>
               }
-              actionIcon={
-                <IconButton className={classes.icon}>
-                  <AddShoppingCartIcon />
-                </IconButton>
-              }
+              actionIcon={<AddToBasketButton item={{ ...prestation, ...{ mainTitle: title } }} />}
             />
           </GridListTile>
         </Tooltip>
@@ -83,3 +80,5 @@ export default props => {
     </Fragment>
   )
 }
+
+export default PrestationTile

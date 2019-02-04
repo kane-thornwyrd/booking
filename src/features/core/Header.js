@@ -1,24 +1,22 @@
 import React from 'react'
-
 import { Link } from 'react-router-dom'
 
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import HelpIcon from '@material-ui/icons/Help'
 import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import NotificationsIcon from '@material-ui/icons/Notifications'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import Toolbar from '@material-ui/core/Toolbar'
-import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 
+import MenuIcon from '@material-ui/icons/Menu'
+
 import { ROUTE_APPROOT } from '../home'
+import { BasketButton } from '../prestations-basket'
 
 const lightColor = 'rgba(255, 255, 255, 0.7)'
 
@@ -61,24 +59,11 @@ const Header = ({ classes, onDrawerToggle }) => (
               </IconButton>
             </Grid>
           </Hidden>
-        </Grid>
-      </Toolbar>
-    </AppBar>
-    <AppBar
-      component="div"
-      className={classes.secondaryBar}
-      color="primary"
-      position="static"
-      elevation={0}
-    >
-      <Toolbar>
-        <Grid container alignItems="center" spacing={8}>
           <Grid item xs>
-            <Typography variant="h5">
-              <Link to={ROUTE_APPROOT} style={{ color: '#fff', textDecoration: 'inherit' }}>
-                Booking
-              </Link>
-            </Typography>
+            <Typography variant="h5">Booking</Typography>
+          </Grid>
+          <Grid item>
+            <BasketButton />
           </Grid>
         </Grid>
       </Toolbar>

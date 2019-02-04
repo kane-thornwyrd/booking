@@ -14,6 +14,7 @@
         "removePrefix": "src/",
         "filebase": false
       }
-    ]
+    ],
+    "syntax-dynamic-import",
   ]
 }
