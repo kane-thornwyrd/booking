@@ -46,3 +46,14 @@ export function arrowGenerator(color) {
     },
   }
 }
+
+export const computeTotals = keys => collection =>
+  keys.reduce((a, e) => {
+    a[e] = 0
+    collection.map(o => {
+      a[e] += o[e]
+    })
+    return a
+  }, {})
+
+export const delay = delay => new Promise(resolve => setTimeout(resolve, delay))
