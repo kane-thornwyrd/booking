@@ -1,6 +1,8 @@
 import React from 'react'
 import { createMuiTheme } from '@material-ui/core/styles'
 
+const INHERIT = 'inherit'
+
 const main = createMuiTheme({
   typography: {
     fontFamily: ['Capriola', 'sans-serif'],
@@ -9,7 +11,7 @@ const main = createMuiTheme({
     fontWeightRegular: 200,
     fontWeightMedium: 400,
     h5: {
-      color: 'inherit',
+      color: INHERIT,
       fontWeight: 500,
       fontSize: 26,
       letterSpacing: 0.5,
@@ -109,7 +111,7 @@ const paperbase = theme => ({
     },
     MuiListItemIcon: {
       root: {
-        color: 'inherit',
+        color: INHERIT,
         marginRight: 0,
         '& svg': {
           fontSize: 20,
@@ -125,6 +127,23 @@ const paperbase = theme => ({
     MuiGridListTileBar: {
       title: {
         fontSize: '0.8rem',
+      },
+    },
+    MuiSnackbar: {
+      anchorOriginTopRight: {
+        top: '0 !important',
+        right: '0 !important',
+      },
+    },
+    MuiSnackbarContent: {
+      root: {
+        borderRadius: '0 !important',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+      },
+    },
+    MuiListSubheader: {
+      root: {
+        ...theme.typography.h5,
       },
     },
   },

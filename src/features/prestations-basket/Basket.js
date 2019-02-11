@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import mdf from 'moment-duration-format'
 import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 
 import { Currency, Utils } from '../../common'
 import { AddToBasketButton, RemoveFromBasketButton } from './'
@@ -16,9 +17,6 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 mdf(moment)
 
 const styles = theme => ({
-  root: {
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
-  },
   table: {
     borderCollapse: 'collapse',
     color: 'gray',
@@ -40,6 +38,9 @@ const styles = theme => ({
       '&:hover': {
         backgroundColor: theme.palette.primary.light,
         color: theme.palette.primary.contrastText,
+      },
+      '&:last-of-type': {
+        fontWeight: 900,
       },
     },
     '& td': {
@@ -70,8 +71,8 @@ const Basket = props => {
   const subtotal = Utils.computeTotals(['duration', 'price'])(basket)
 
   return (
-    <Paper square elevation={1} className={classes.root}>
-      <h1>Panier</h1>
+    <Fragment>
+      <Typography variant="h5">Panier</Typography>
       <Table className={classes.table}>
         <Thead>
           <Tr>
@@ -125,7 +126,7 @@ const Basket = props => {
           </Tr>
         </Tbody>
       </Table>
-    </Paper>
+    </Fragment>
   )
 }
 

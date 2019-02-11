@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
@@ -6,9 +6,11 @@ import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import { Spring, animated } from 'react-spring'
 
+import Badge from '@material-ui/core/Badge'
 import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton'
 
+import CloseIcon from '@material-ui/icons/Close'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
 import { ROUTE_PRESTATION_BASKET } from './routes'
@@ -28,11 +30,16 @@ const BasketButton = props => {
   const [basketUpdate, setBasketUpdate] = useState(false)
   const [prevBasketLength, setPrevBasketLength] = useState(null)
 
-  if (basket.length !== prevBasketLength) {
-    setPrevBasketLength(basket.length)
-    setBasketUpdate(basket.length !== prevBasketLength)
-    setTimeout(() => setBasketUpdate(false), 500)
-  }
+  useEffect(
+    () => {
+      if (basket.length !== prevBasketLength) {
+        setPrevBasketLength(basket.length)
+        setBasketUpdate(basket.length !== prevBasketLength)
+      }
+      setTimeout(() => setBasketUpdate(false), 2000)
+    },
+    [basket.length]
+  )
 
   return (
     <Fragment>
@@ -56,7 +63,9 @@ const BasketButton = props => {
               component={Link}
               to={ROUTE_PRESTATION_BASKET}
             >
-              <ShoppingCartIcon />
+              <Badge badgeContent={basket.length} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
             </IconButton>
           </animated.div>
         )}
@@ -68,6 +77,9 @@ const BasketButton = props => {
           'aria-describedby': 'message-id',
         }}
         message={<span id="message-id">Panier mis à jour</span>}
+        TransitionProps={{
+          direction: 'left',
+        }}
       />
     </Fragment>
   )

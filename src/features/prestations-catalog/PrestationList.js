@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withStyles, withTheme } from '@material-ui/core/styles'
 
-import Paper from '@material-ui/core/Paper'
 import GridList from '@material-ui/core/GridList'
 
 import { contexts as commonContexts, Loading, Utils, If } from '../../common'
@@ -12,13 +11,11 @@ import { selectors as coreSelectors } from '../core'
 import PrestationTile from './PrestationTile'
 
 const styles = theme => ({
-  root: {
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
-  },
   grid: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    margin: 0,
   },
   icon: {
     color: theme.palette.primary.main,
@@ -61,22 +58,20 @@ const Content = ({ classes, children, theme, prestations, references, list, subl
   if (!prestations || !references) return <Loading />
 
   return (
-    <Paper square elevation={1} className={classes.root}>
-      <GridList cellHeight={180} className={classes.grid}>
-        {references.map(reference => {
-          return (
-            <PrestationTile
-              key={reference.reference}
-              title={reference.title}
-              prestations={prestations}
-              classes={classes}
-              isGreaterThanSM={isGreaterThanSM}
-              isReferenceRoot={!sublist}
-            />
-          )
-        })}
-      </GridList>
-    </Paper>
+    <GridList spacing={0} cellHeight={180} className={classes.grid}>
+      {references.map(reference => {
+        return (
+          <PrestationTile
+            key={reference.reference}
+            title={reference.title}
+            prestations={prestations}
+            classes={classes}
+            isGreaterThanSM={isGreaterThanSM}
+            isReferenceRoot={!sublist}
+          />
+        )
+      })}
+    </GridList>
   )
 }
 
