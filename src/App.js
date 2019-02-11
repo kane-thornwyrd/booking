@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { hot } from 'react-hot-loader'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { hot } from 'react-hot-loader'
 
 import { routes, renderRouteConfig } from './routes'
 
@@ -13,8 +13,6 @@ const App = props => {
     messages,
     actions: { getUniverse },
   } = props
-
-  const [universeState, setUniverseState] = useState(null)
 
   useEffect(() => {
     getUniverse()
@@ -31,7 +29,9 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators({ ...actions }, dispatch) }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(hot(module)(App))
+export default hot(module)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+)

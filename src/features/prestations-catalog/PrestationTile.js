@@ -2,9 +2,9 @@ import React, { Fragment, useState } from 'react'
 
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
-import ListSubheader from '@material-ui/core/ListSubheader'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
 
 import { Image } from '../../common'
 
@@ -19,9 +19,7 @@ const PrestationTile = props => {
   return (
     <Fragment>
       <GridListTile key="Subheader" style={{ height: 'auto', width: '100%' }}>
-        <ListSubheader component="div">
-          {isReferenceRoot ? title : `${title} - ${subtitle}`}
-        </ListSubheader>
+        <Typography variant="h5">{isReferenceRoot ? title : `${title} - ${subtitle}`}</Typography>
       </GridListTile>
       {prestations.map(prestation => (
         <Tooltip
@@ -51,13 +49,13 @@ const PrestationTile = props => {
         >
           <GridListTile style={{ height: '180px' }}>
             <Image
-              source={`https://loremflickr.com/g/${isGreaterThanSM ? 180 : 360}/180/${
+              source={`https://loremflickr.com/g/${isGreaterThanSM ? 180 : 300}/180/${
                 prestation.reference
               },${prestation.subReference}/all?random=${prestation.reference}-${
                 prestation.subReference
               }-${prestation.prestationReference}`}
               alt={`${prestation.categoryTitle} - ${prestation.title}`}
-              width={isGreaterThanSM ? 180 : 360}
+              width={isGreaterThanSM ? 180 : 300}
               height={180}
             />
             <GridListTileBar
