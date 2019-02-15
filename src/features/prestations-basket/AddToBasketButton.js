@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
-import { actions as prestationBasketActions } from './index'
+import { actions as prestationBasketActions } from './'
 
 const styles = theme => ({
   icon: {
