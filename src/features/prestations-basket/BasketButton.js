@@ -17,10 +17,16 @@ import { ROUTE_PRESTATION_BASKET } from './routes'
 
 const styles = theme => ({
   button: {
-    color: theme.palette.primary.dark,
+    color: theme.palette.secondary,
   },
   highlighted: {
     color: '#fff',
+  },
+  badge: {
+    top: '50%',
+    right: -3,
+    lineHeight: 20,
+    border: 'none',
   },
 })
 
@@ -41,48 +47,28 @@ const BasketButton = props => {
     [basket.length]
   )
 
-  return (
-    <Fragment>
+  return <Fragment>
       <Spring native from={{ x: 0 }} to={{ x: basketUpdate ? 1 : 0 }} config={{ duration: 500 }}>
-        {({ x }) => (
-          <animated.div
-            style={{
-              transform: x
+        {({ x }) => <animated.div style={{ transform: x
                 .interpolate({
                   range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
                   output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
                 })
-                .interpolate(x => `scale(${x})`),
-            }}
-          >
-            <IconButton
-              className={classNames({
+                .interpolate(x => `scale(${x})`) }}>
+            <IconButton className={classNames({
                 [classes.button]: true,
                 [classes.highlighted]: basketUpdate,
-              })}
-              component={Link}
-              to={ROUTE_PRESTATION_BASKET}
-            >
-              <Badge badgeContent={basket.length} color="secondary">
+              })} component={Link} to={ROUTE_PRESTATION_BASKET}>
+              <Badge badgeContent={basket.length} color="primary" classes={{ badge: classes.badge }}>
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-          </animated.div>
-        )}
+          </animated.div>}
       </Spring>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={basketUpdate}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={<span id="message-id">Panier mis à jour</span>}
-        TransitionProps={{
-          direction: 'left',
-        }}
-      />
+      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={basketUpdate} ContentProps={{ 'aria-describedby': 'message-id' }} message={<span id="message-id">
+            Panier mis à jour
+          </span>} TransitionProps={{ direction: 'left' }} />
     </Fragment>
-  )
 }
 
 const mapStateToProps = (state, props) => {

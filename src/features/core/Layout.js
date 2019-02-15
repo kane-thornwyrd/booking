@@ -17,11 +17,12 @@ const styles = theme => ({
   },
   'paper-root': {
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
-    margin: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px 65px`,
+    margin: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px calc(1em + ${65 +
+      theme.spacing.unit * 2}px)`,
     [theme.breakpoints.down('sm')]: {
       padding: 0,
       paddingBottom: theme.spacing.unit,
-      margin: `0px 0px 65px`,
+      margin: `0px 0px calc(1em + ${65 + theme.spacing.unit * 2}px)`,
     },
   },
   drawer: {

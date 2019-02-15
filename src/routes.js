@@ -5,12 +5,14 @@ import Home, { ROUTE_APPROOT } from './features/home'
 import { themes } from './themes'
 
 // import moduleRoute from './features/module/route';
+import { routes as addressBookRoutes } from './features/address-book'
 import { routes as basketRoutes } from './features/prestations-basket'
 import { routes as prestationsCatalogRoutes } from './features/prestations-catalog'
 import { routes as coreRoutes } from './features/core'
 
 const childRoutes = [
   //moduleRoute,
+  addressBookRoutes,
   basketRoutes,
   prestationsCatalogRoutes,
   coreRoutes,

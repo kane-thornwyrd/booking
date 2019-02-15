@@ -3,16 +3,19 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import mdf from 'moment-duration-format'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-
-import { Currency, Utils } from '../../common'
-import { AddToBasketButton, RemoveFromBasketButton } from './'
-
+import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Fade from '@material-ui/core/Fade'
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
+
+import LocationOnIcon from '@material-ui/icons/LocationOn'
+
+import { Currency, Utils } from '../../common'
+import { AddToBasketButton, RemoveFromBasketButton } from './'
 
 mdf(moment)
 
@@ -47,6 +50,12 @@ const styles = theme => ({
       paddingTop: theme.spacing.unit,
       paddingLeft: theme.spacing.unit * 2,
     },
+  },
+  button: {
+    marginTop: theme.spacing.unit * 2,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 })
 
@@ -83,6 +92,11 @@ const Basket = props => {
           </Tr>
         </Thead>
         <Tbody>
+          {!basket.length && (
+            <Tr>
+              <Td colSpan={4}>Veuillez choisir des prestations</Td>
+            </Tr>
+          )}
           {basket.map((item, index) => {
             const {
               reference,
@@ -126,6 +140,17 @@ const Basket = props => {
           </Tr>
         </Tbody>
       </Table>
+      {!!basket.length && (
+        <Button
+          className={classes.button}
+          color="primary"
+          variant="contained"
+          component={Link}
+          to={'/address'}
+        >
+          <LocationOnIcon className={classes.leftIcon} /> Adresse
+        </Button>
+      )}
     </Fragment>
   )
 }

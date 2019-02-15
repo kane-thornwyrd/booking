@@ -19,16 +19,16 @@ const main = createMuiTheme({
   },
   palette: {
     primary: {
-      light: '#ff9d57',
+      light: '#FF915D',
       main: '#f86c28',
-      dark: '#be3b00',
+      dark: '#C24305',
       contrastText: '#fff',
     },
     secondary: {
-      light: 'rgba(255,255,255,0.1)',
-      main: 'rgba(255,255,255,0.5)',
-      dark: 'rgba(255,255,255,0.8)',
-      contrastText: '#000',
+      light: '#C24305',
+      main: '#822A00',
+      dark: 'rgba(0,0,0,0.54)',
+      contrastText: '#fff',
     },
   },
   shape: {
@@ -50,14 +50,11 @@ const paperbase = theme => ({
       },
     },
     MuiButton: {
+      root: {
+        borderRadius: 0,
+      },
       label: {
         textTransform: 'initial',
-      },
-      contained: {
-        boxShadow: 'none',
-        '&:active': {
-          boxShadow: 'none',
-        },
       },
     },
     MuiTabs: {

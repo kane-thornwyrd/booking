@@ -1,5 +1,6 @@
 body
   font-family: 'Josefin Sans', sans-serif
+  user-select: none
 
 #mainloader
   position: absolute

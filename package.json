@@ -92,11 +92,12 @@
   },
   "dependencies": {
     "@date-io/moment": "1.0.1",
-    "@material-ui/core": "3.9.0",
+    "@material-ui/core": "3.9.2",
     "@material-ui/icons": "3.0.2",
     "@material-ui/styles": "3.0.0-alpha.10",
     "classnames": "2.2.6",
     "connected-react-router": "6.2.1",
+    "formik": "1.5.0",
     "history": "4.7.2",
     "immutability-helper": "3.0.0",
     "lodash": "4.17.11",
@@ -120,7 +121,8 @@
     "redux-remember": "1.0.14",
     "redux-saga": "0.16.2",
     "reselect": "4.0.0",
-    "whatwg-fetch": "3.0.0"
+    "whatwg-fetch": "3.0.0",
+    "yup": "0.26.10"
   },
   "browserslist": "> 0.25%, not dead"
 }
